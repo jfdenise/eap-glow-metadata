@@ -7,9 +7,8 @@
         <artifactId>jboss-eap-glow-metadata-parent</artifactId>
         <version>1.0.0.Final-SNAPSHOT</version>
     </parent>
-    <groupId>org.jboss.eap.glow.metadata</groupId>
     <version>1.0.0.Final-SNAPSHOT</version>
-    <artifactId>jboss-eap-xp-glow-metadata-6.0</artifactId>
+    <artifactId>eap-xp-6.0</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

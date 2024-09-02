@@ -27,8 +27,8 @@ public class MetadataProviderImpl implements MetadataProvider {
     }
 
     @Override
-    public InputStream getProvisioningFile(String context) {
-        String path = "/" + resourcesRoot + "/provisioning-" + context+".xml";
-        return MetadataProviderImpl.class.getResourceAsStream(path);
+    public InputStream getProvisioningFile(String context, ClassLoader loader) {
+        String path = resourcesRoot + "/provisioning-" + context+".xml";
+        return loader.getResourceAsStream(path);
     }
 }
