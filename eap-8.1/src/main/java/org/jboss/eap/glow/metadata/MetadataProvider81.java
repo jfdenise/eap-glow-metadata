@@ -11,6 +11,6 @@ package org.jboss.eap.glow.metadata;
 public class MetadataProvider81 extends MetadataProviderImpl {
 
     public MetadataProvider81() {
-        super("eap-8.1", "eap-glow-metadata-8.1");
+        super("eap-8.1", "eap-glow-metadata");
     }
 }

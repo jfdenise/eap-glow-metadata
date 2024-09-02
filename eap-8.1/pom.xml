@@ -10,10 +10,43 @@
     <version>1.0.0.Final-SNAPSHOT</version>
     <artifactId>eap-8.1</artifactId>
     <packaging>jar</packaging>
-<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.jboss.eap.glow.metadata</groupId>
             <artifactId>jboss-eap-glow-metadata-api</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wildfly.glow</groupId>
+                <artifactId>wildfly-glow-doc-plugin</artifactId>
+                <configuration>
+                    <channels>
+                        <channel>
+                            <manifest>
+                                <url>file:///home/jdenise/workspaces/wildfly-glow-eap/eap-8.0-1.1.0.GA-redhat-00001-manifest.yaml</url>
+                            </manifest>
+                        </channel>
+                    </channels>
+                    <preview>false</preview>
+                    <serverType>JBoss EAP</serverType>
+                    <targetDir>${basedir}/target/resources</targetDir>
+                    <generatedFile>featurepacks.adoc</generatedFile>
+                    <generateRuleDescriptions>false</generateRuleDescriptions>
+                    <generateKnownFeaturePacks>true</generateKnownFeaturePacks>
+                    <repoPath>${basedir}/src/main/resources/eap-glow-metadata</repoPath>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>scan-doc</id>
+                        <goals>
+                            <goal>scan-doc</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

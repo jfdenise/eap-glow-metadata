@@ -1,0 +1,876 @@
+## Support for JBoss EAP eap-8.1
+
+
+### bare-metal
+
+#### Supported Galleon feature-packs 
+* org.jboss.eap:wildfly-ee-galleon-pack: 
+* org.jboss.eap:eap-datasources-galleon-pack: 
+* org.keycloak:keycloak-saml-adapter-galleon-pack: 
+* org.jboss.eap:eap-myfaces-feature-pack: 
+
+#### [[glow.table.bare-metal]]Galleon layers and associated discovery rules
+[cols="25%,50%,25%"]
+|===
+|Layer |Rule(s) |Feature-pack(s)
+|batch-jberet
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.batch.api.* +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=/WEB-INF/classes/META-INF/batch-jobs +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|bean-validation
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.validation.* +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.validation.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|cdi
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.inject,jakarta.enterprise.context +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/beans.xml,/WEB-INF/beans.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|cloud-server
+|
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=base-layer +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|core-tools
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=management,wildfly-cli +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Server command line tools: jboss-cli, add-user, elytron-tool. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|datasources
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=java.sql,javax.sql +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|datasources-web-server
+|
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=base-layer +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-concurrency
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.enterprise.concurrent +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-core-profile-server
+|
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=default-base-layer +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-integration
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.annotation,jakarta.annotation.security,jakarta.annotation.sql,jakarta.xml.bind.annotation,jakarta.xml.bind.annotation.adapters +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.xml.bind.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-security
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.security.enterprise.authentication.mechanism.http.*,jakarta.security.enterprise.identitystore +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.security.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.ejb.MessageDriven,jakarta.ejb.Remote +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.ejb.MessageDrivenContext +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb-dist-cache
+|
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=ejb-local-cache +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb-http-invoker
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=ejb,http-invoker +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for invoking Jakarta Enterprise Beans over HTTP. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb-lite
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.ejb +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.ejb +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|elytron-oidc-client
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/login-config/auth-method,OIDC +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|embedded-activemq
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=messaging,embedded-activemq +
+link:#glow.org.wildfly.rule.add-on-cardinality[org.wildfly.rule.add-on-cardinality]=1 +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:messaging-activemq +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for an embedded Apache Activemq Artemis Jakarta Messaging broker. +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/WEB-INF/*-jms.xml,/META-INF/*-jms.xml],/messaging-deployment/server/jms-destinations +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|h2-datasource
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=database,h2-database +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:datasources +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for an H2 datasource. +
+link:#glow.org.wildfly.rule.bring-datasource[org.wildfly.rule.bring-datasource]=java:jboss/datasources/ExampleDS +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/WEB-INF/classes/META-INF/persistence.xml,/META-INF/persistence.xml],/persistence/persistence-unit/jta-data-source,java:jboss/datasources/ExampleDS +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|h2-default-datasource
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=database,h2-database:default +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:datasources +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for an H2 datasource set as the ee subsystem default datasource. +
+link:#glow.org.wildfly.rule.add-on-fix-[org.wildfly.rule.add-on-fix-no-default-datasource]= +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|h2-driver
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/WEB-INF/*.xml,/META-INF/*.xml],/datasources/datasource/driver,h2 +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path-xa]=[/WEB-INF/*.xml,/META-INF/*.xml],/datasources/xa-datasource/driver,h2 +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|health
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=observability,health +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:management +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for runtime health checks. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|iiop-openjdk
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=rpc,iiop +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=none +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for IIOP. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|infinispan
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=clustering,infinispan +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Brings in infinispan caches. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jaxrs
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.ws.rs,jakarta.ws.rs.core +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.ws.rs,jakarta.ws.rs.core +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/servlet/servlet-class,jakarta.ws.rs.core.Application +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jdr
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=management,jdr +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for the JBoss Diagnostic Reporting (JDR). +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jgroups-aws
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=clustering,jgroups-aws +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:jgroups +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Brings in JBoss Modules modules required to configure the 'aws.S3_PING' discovery protocol. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jpa
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.persistence +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.persistence,jakarta.persistence.criteria +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/persistence.xml,/WEB-INF/classes/META-INF/persistence.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jpa-distributed
+|
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=jpa +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jsf
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.faces.annotation +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.faces.* +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=/WEB-INF/faces-config.xml +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/servlet/servlet-class,jakarta.faces.webapp.FacesServlet +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jsonb
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.json.bind.annotation +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.json.bind.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jsonp
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.json,jakarta.json.stream +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|mail
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.mail +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.mail.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|messaging-activemq
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.jms +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.jms +
+link:#glow.org.wildfly.rule.expect-add-on-family[org.wildfly.rule.expect-add-on-family]=messaging +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|metrics
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=observability,metrics +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:management +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for base metrics from the WildFly Management Model and JVM MBeans. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|mod_cluster
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=clustering,mod_cluster +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:undertow +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for mod_cluster integration. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|naming
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=javax.naming +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|pojo
+|
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/*jboss-beans.xml,/WEB-INF/*jboss-beans.xml,/WEB-INF/classes/META-INF/*jboss-beans.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|postgresql-datasource
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=database,postgresql +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:datasources +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Documentation in https://github.com/wildfly-extras/wildfly-datasources-galleon-pack +
+link:#glow.org.wildfly.rule.add-on-fix-[org.wildfly.rule.add-on-fix-unbound-datasources]=JNDI env,POSTGRESQL_JNDI=##ITEM## +
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/jfdenise/eap-datasources-galleon-pack/eap-poc/doc/postgresql/env.yaml +
+l|
+org.jboss.eap:eap-datasources-galleon-pack:8.0.0.Final-redhat-SNAPSHOT
+|postgresql-driver
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/META-INF/*.xml,/WEB-INF/*.xml],/datasources/datasource/driver,postgresql +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path-xa]=[/META-INF/*.xml,/WEB-INF/*.xml],/datasources/xa-datasource/driver,postgresql +
+l|
+org.jboss.eap:eap-datasources-galleon-pack:8.0.0.Final-redhat-SNAPSHOT
+|remote-activemq
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=messaging,remote-activemq +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:messaging-activemq +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for connections to a remote Apache Activemq Artemis Jakarta Messaging broker. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|resource-adapters
+|
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/ra.xml,/META-INF/ironjacamar.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|sar
+|
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=/META-INF/jboss-service.xml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|servlet
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.servlet.annotation,jakarta.websocket.* +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.servlet.*,jakarta.websocket.* +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/servlet +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|singleton-ha
+|
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=singleton-local +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|singleton-local
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=org.wildfly.clustering.singleton.* +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/singleton-deployment.xml,/WEB-INF/classes/META-INF/singleton-deployment.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|transactions
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.transaction +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.transaction +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|undertow-https
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=security,ssl +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for the Undertow HTTPS listener. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|undertow-load-balancer
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=web,load-balancer +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=none +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for Undertow configured as a load balancer. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|web-clustering
+|
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=web-passivation +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|web-console
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=management,hal-web-console +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Management Web console. Make sure to add an initial user. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|web-passivation
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/distributable +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|webservices
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.jws,jakarta.jws.soap,jakarta.xml.ws.* +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.xml.ws.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|===
+
+#### [[glow.table.addons.bare-metal]]Add-ons
+[cols="25%,25%,50%"]
+|===
+|Add-on |Family |Description
+|embedded-activemq
+|messaging
+|Support for an embedded Apache Activemq Artemis Jakarta Messaging broker.
+|h2-database
+|database
+|Support for an H2 datasource.
+|h2-database:default
+|database
+|Support for an H2 datasource set as the ee subsystem default datasource.
+|hal-web-console
+|management
+|Management Web console. Make sure to add an initial user.
+|health
+|observability
+|Support for runtime health checks.
+|http-invoker
+|ejb
+|Support for invoking Jakarta Enterprise Beans over HTTP.
+|iiop
+|rpc
+|Support for IIOP.
+|infinispan
+|clustering
+|Brings in infinispan caches.
+|jdr
+|management
+|Support for the JBoss Diagnostic Reporting (JDR).
+|jgroups-aws
+|clustering
+|Brings in JBoss Modules modules required to configure the 'aws.S3_PING' discovery protocol.
+|load-balancer
+|web
+|Support for Undertow configured as a load balancer.
+|metrics
+|observability
+|Support for base metrics from the WildFly Management Model and JVM MBeans.
+|mod_cluster
+|clustering
+|Support for mod_cluster integration.
+|postgresql
+|database
+|Documentation in https://github.com/wildfly-extras/wildfly-datasources-galleon-pack
+|remote-activemq
+|messaging
+|Support for connections to a remote Apache Activemq Artemis Jakarta Messaging broker.
+|ssl
+|security
+|Support for the Undertow HTTPS listener.
+|wildfly-cli
+|management
+|Server command line tools: jboss-cli, add-user, elytron-tool.
+|===
+
+### cloud
+
+#### Supported Galleon feature-packs 
+* org.jboss.eap:wildfly-ee-galleon-pack: 
+* org.jboss.eap.cloud:eap-cloud-galleon-pack: 
+* org.jboss.eap:eap-datasources-galleon-pack: 
+* org.keycloak:keycloak-saml-adapter-galleon-pack: 
+* org.jboss.eap:eap-myfaces-feature-pack: 
+
+#### [[glow.table.cloud]]Galleon layers and associated discovery rules
+[cols="25%,50%,25%"]
+|===
+|Layer |Rule(s) |Feature-pack(s)
+|base-server
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/port-offset/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|batch-jberet
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.batch.api.* +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=/WEB-INF/classes/META-INF/batch-jobs +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|bean-validation
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.validation.* +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.validation.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|cdi
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.inject,jakarta.enterprise.context +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/beans.xml,/WEB-INF/beans.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|cloud-remote-activemq
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=messaging,cloud-remote-activemq +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:messaging-activemq +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Configure connection to a remote broker using MQ_SERVICE_PREFIX_MAPPING env variable. +
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/messaging/2.0/module.yaml +
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=metadata-only +
+l|
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|cloud-server
+|
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=base-layer +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|core-tools
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=management,wildfly-cli +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Server command line tools: jboss-cli, add-user, elytron-tool. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|datasources
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=java.sql,javax.sql +
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/datasources/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|datasources-web-server
+|
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=base-layer +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|deployment-scanner
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/deployment-scanner/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|ee-concurrency
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.enterprise.concurrent +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-core-profile-server
+|
+link:#glow.org.wildfly.rule.kind[org.wildfly.rule.kind]=default-base-layer +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-integration
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.annotation,jakarta.annotation.security,jakarta.annotation.sql,jakarta.xml.bind.annotation,jakarta.xml.bind.annotation.adapters +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.xml.bind.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ee-security
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.security.enterprise.authentication.mechanism.http.*,jakarta.security.enterprise.identitystore +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.security.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.ejb.MessageDriven,jakarta.ejb.Remote +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.ejb.MessageDrivenContext +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb-dist-cache
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/jgroups/module.yaml +
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=ejb-local-cache +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|ejb-http-invoker
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=ejb,http-invoker +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for invoking Jakarta Enterprise Beans over HTTP. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|ejb-lite
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.ejb +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.ejb +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|elytron
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/elytron/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|elytron-oidc-client
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/oidc/module.yaml +
+link:#glow.org.wildfly.rule.no-configuration-if[org.wildfly.rule.no-configuration-if-org.wildfly.rule.expected-file-oidc]=/WEB-INF/oidc.json +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/login-config/auth-method,OIDC +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|embedded-activemq
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=messaging,embedded-activemq +
+link:#glow.org.wildfly.rule.add-on-cardinality[org.wildfly.rule.add-on-cardinality]=1 +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:messaging-activemq +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for an embedded Apache Activemq Artemis Jakarta Messaging broker. +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/WEB-INF/*-jms.xml,/META-INF/*-jms.xml],/messaging-deployment/server/jms-destinations +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|h2-datasource
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=database,h2-database +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:datasources +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for an H2 datasource. +
+link:#glow.org.wildfly.rule.bring-datasource[org.wildfly.rule.bring-datasource]=java:jboss/datasources/ExampleDS +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/WEB-INF/classes/META-INF/persistence.xml,/META-INF/persistence.xml],/persistence/persistence-unit/jta-data-source,java:jboss/datasources/ExampleDS +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|h2-default-datasource
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=database,h2-database:default +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:datasources +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for an H2 datasource set as the ee subsystem default datasource. +
+link:#glow.org.wildfly.rule.add-on-fix-[org.wildfly.rule.add-on-fix-no-default-datasource]= +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|h2-driver
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/WEB-INF/*.xml,/META-INF/*.xml],/datasources/datasource/driver,h2 +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path-xa]=[/WEB-INF/*.xml,/META-INF/*.xml],/datasources/xa-datasource/driver,h2 +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|health
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=observability,health +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:management +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for runtime health checks. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|iiop-openjdk
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=rpc,iiop +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=none +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for IIOP. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|infinispan
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=clustering,infinispan +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Brings in infinispan caches. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jaxrs
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.ws.rs,jakarta.ws.rs.core +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.ws.rs,jakarta.ws.rs.core +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/servlet/servlet-class,jakarta.ws.rs.core.Application +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jdr
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=management,jdr +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for the JBoss Diagnostic Reporting (JDR). +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jgroups-aws
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=clustering,jgroups-aws +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:jgroups +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Brings in JBoss Modules modules required to configure the 'aws.S3_PING' discovery protocol. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jpa
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.persistence +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.persistence,jakarta.persistence.criteria +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/persistence.xml,/WEB-INF/classes/META-INF/persistence.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|jpa-distributed
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/jgroups/module.yaml +
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=jpa +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|jsf
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.faces.annotation +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.faces.* +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=/WEB-INF/faces-config.xml +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/servlet/servlet-class,jakarta.faces.webapp.FacesServlet +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jsonb
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.json.bind.annotation +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.json.bind.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|jsonp
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.json,jakarta.json.stream +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|keycloak-client-saml
+|
+link:#glow.org.wildfly.rule.hidden-if[org.wildfly.rule.hidden-if-org.wildfly.rule.not-expected-file-keycloak]=/WEB-INF/keycloak.json +
+l|
+org.keycloak:keycloak-saml-adapter-galleon-pack:22.0.6.redhat-00004
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|keycloak-saml
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/keycloak/2.0/module.yaml +
+link:#glow.org.wildfly.rule.no-configuration-if[org.wildfly.rule.no-configuration-if-org.wildfly.rule.expected-file-keycloak]=/WEB-INF/keycloak.json +
+l|
+org.keycloak:keycloak-saml-adapter-galleon-pack:22.0.6.redhat-00004
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|logging
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/json-logging/module.yaml,https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/logger-category/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|mail
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.mail +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.mail.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|management
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/admin/2.0/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|messaging-activemq
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.jms +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.jms +
+link:#glow.org.wildfly.rule.expect-add-on-family[org.wildfly.rule.expect-add-on-family]=messaging +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|metrics
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=observability,metrics +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:management +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for base metrics from the WildFly Management Model and JVM MBeans. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|mod_cluster
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=clustering,mod_cluster +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:undertow +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for mod_cluster integration. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|naming
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=javax.naming +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|pojo
+|
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/*jboss-beans.xml,/WEB-INF/*jboss-beans.xml,/WEB-INF/classes/META-INF/*jboss-beans.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|postgresql-datasource
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=database,postgresql +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:datasources +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Documentation in https://github.com/wildfly-extras/wildfly-datasources-galleon-pack +
+link:#glow.org.wildfly.rule.add-on-fix-[org.wildfly.rule.add-on-fix-unbound-datasources]=JNDI env,POSTGRESQL_JNDI=##ITEM## +
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/jfdenise/eap-datasources-galleon-pack/eap-poc/doc/postgresql/env.yaml +
+l|
+org.jboss.eap:eap-datasources-galleon-pack:8.0.0.Final-redhat-SNAPSHOT
+|postgresql-driver
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=[/META-INF/*.xml,/WEB-INF/*.xml],/datasources/datasource/driver,postgresql +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path-xa]=[/META-INF/*.xml,/WEB-INF/*.xml],/datasources/xa-datasource/driver,postgresql +
+l|
+org.jboss.eap:eap-datasources-galleon-pack:8.0.0.Final-redhat-SNAPSHOT
+|remote-activemq
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=messaging,remote-activemq +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=only:messaging-activemq +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for connections to a remote Apache Activemq Artemis Jakarta Messaging broker. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|resource-adapters
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/resource-adapters/module.yaml +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/ra.xml,/META-INF/ironjacamar.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|sar
+|
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=/META-INF/jboss-service.xml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|servlet
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.servlet.annotation,jakarta.websocket.* +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.servlet.*,jakarta.websocket.* +
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/servlet +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|singleton-ha
+|
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=singleton-local +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|singleton-local
+|
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=org.wildfly.clustering.singleton.* +
+link:#glow.org.wildfly.rule.expected-file[org.wildfly.rule.expected-file]=[/META-INF/singleton-deployment.xml,/WEB-INF/classes/META-INF/singleton-deployment.xml] +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|transactions
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.transaction +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.transaction +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|undertow
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/access-log-valve/module.yaml,https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/filters/module.yaml +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|undertow-https
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=security,ssl +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for the Undertow HTTPS listener. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|undertow-load-balancer
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=web,load-balancer +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=none +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Support for Undertow configured as a load balancer. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|web-clustering
+|
+link:#glow.org.wildfly.rule.configuration[org.wildfly.rule.configuration]=https://raw.githubusercontent.com/wildfly/wildfly-cekit-modules/main/jboss/container/wildfly/launch/jgroups/module.yaml +
+link:#glow.org.wildfly.rule.profile-[org.wildfly.rule.profile-ha]=web-passivation +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|web-console
+|
+link:#glow.org.wildfly.rule.add-on[org.wildfly.rule.add-on]=management,hal-web-console +
+link:#glow.org.wildfly.rule.add-on-depends-on[org.wildfly.rule.add-on-depends-on]=all-dependencies +
+link:#glow.org.wildfly.rule.add-on-description[org.wildfly.rule.add-on-description]=Management Web console. Make sure to add an initial user. +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|web-passivation
+|
+link:#glow.org.wildfly.rule.xml-path[org.wildfly.rule.xml-path]=/WEB-INF/web.xml,/web-app/distributable +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+|webservices
+|
+link:#glow.org.wildfly.rule.annotations[org.wildfly.rule.annotations]=jakarta.jws,jakarta.jws.soap,jakarta.xml.ws.* +
+link:#glow.org.wildfly.rule.class[org.wildfly.rule.class]=jakarta.xml.ws.* +
+l|
+org.jboss.eap:wildfly-ee-galleon-pack:8.0.1.GA-redhat-SNAPSHOT
+org.jboss.eap.cloud:eap-cloud-galleon-pack:1.0.0.Final-redhat-SNAPSHOT
+|===
+
+#### [[glow.table.addons.cloud]]Add-ons
+[cols="25%,25%,50%"]
+|===
+|Add-on |Family |Description
+|cloud-remote-activemq
+|messaging
+|Configure connection to a remote broker using MQ_SERVICE_PREFIX_MAPPING env variable.
+|embedded-activemq
+|messaging
+|Support for an embedded Apache Activemq Artemis Jakarta Messaging broker.
+|h2-database
+|database
+|Support for an H2 datasource.
+|h2-database:default
+|database
+|Support for an H2 datasource set as the ee subsystem default datasource.
+|hal-web-console
+|management
+|Management Web console. Make sure to add an initial user.
+|health
+|observability
+|Support for runtime health checks.
+|http-invoker
+|ejb
+|Support for invoking Jakarta Enterprise Beans over HTTP.
+|iiop
+|rpc
+|Support for IIOP.
+|infinispan
+|clustering
+|Brings in infinispan caches.
+|jdr
+|management
+|Support for the JBoss Diagnostic Reporting (JDR).
+|jgroups-aws
+|clustering
+|Brings in JBoss Modules modules required to configure the 'aws.S3_PING' discovery protocol.
+|load-balancer
+|web
+|Support for Undertow configured as a load balancer.
+|metrics
+|observability
+|Support for base metrics from the WildFly Management Model and JVM MBeans.
+|mod_cluster
+|clustering
+|Support for mod_cluster integration.
+|postgresql
+|database
+|Documentation in https://github.com/wildfly-extras/wildfly-datasources-galleon-pack
+|remote-activemq
+|messaging
+|Support for connections to a remote Apache Activemq Artemis Jakarta Messaging broker.
+|ssl
+|security
+|Support for the Undertow HTTPS listener.
+|wildfly-cli
+|management
+|Server command line tools: jboss-cli, add-user, elytron-tool.
+|===
