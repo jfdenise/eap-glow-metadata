@@ -10,10 +10,10 @@
     <version>1.0.0.Final-SNAPSHOT</version>
     <artifactId>eap-8.1</artifactId>
     <packaging>jar</packaging>
-    <dependencies>
+<dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-eap-glow-metadata-common</artifactId>
+            <groupId>org.jboss.eap.glow.metadata</groupId>
+            <artifactId>jboss-eap-glow-metadata-api</artifactId>
         </dependency>
     </dependencies>
 </project>
