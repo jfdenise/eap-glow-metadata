@@ -8,7 +8,7 @@
         <version>1.0.0.Final-SNAPSHOT</version>
     </parent>
     <version>1.0.0.Final-SNAPSHOT</version>
-    <artifactId>eap-8.1</artifactId>
+    <artifactId>eap-8.2</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

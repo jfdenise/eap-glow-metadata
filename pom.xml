@@ -19,7 +19,7 @@
         <version.org.wildfly.glow>1.1.1.Final</version.org.wildfly.glow>
     </properties>
     <modules>
-        <module>eap-8.1</module>
+        <module>eap-8.2</module>
     </modules>
     <dependencyManagement>
         <dependencies>
