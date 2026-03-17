@@ -5,9 +5,8 @@
     <parent>
         <groupId>org.jboss.eap.glow.metadata</groupId>
         <artifactId>jboss-eap-glow-metadata-parent</artifactId>
-        <version>1.0.0.Final-SNAPSHOT</version>
+        <version>1.0.0.Beta-SNAPSHOT</version>
     </parent>
-    <version>1.0.0.Final-SNAPSHOT</version>
     <artifactId>eap-8.2</artifactId>
     <packaging>jar</packaging>
     <dependencies>
@@ -16,37 +15,4 @@
             <artifactId>jboss-eap-glow-metadata-api</artifactId>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.wildfly.glow</groupId>
-                <artifactId>wildfly-glow-doc-plugin</artifactId>
-                <configuration>
-                    <channels>
-                        <channel>
-                            <manifest>
-                                <url>https://raw.githubusercontent.com/jfdenise/eap-maven-plugin/refs/heads/8.2-glow/wip-manifest/wildfly-ee-39.0.0.Final-manifest.yaml</url>
-                            </manifest>
-                        </channel>
-                    </channels>
-                    <preview>false</preview>
-                    <serverType>JBoss EAP</serverType>
-                    <targetDir>${basedir}/target/resources</targetDir>
-                    <generatedFile>featurepacks.adoc</generatedFile>
-                    <generateRuleDescriptions>false</generateRuleDescriptions>
-                    <generateKnownFeaturePacks>true</generateKnownFeaturePacks>
-                    <repoPath>${basedir}/src/main/resources/eap-glow-metadata</repoPath>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>scan-doc</id>
-                        <goals>
-                            <goal>scan-doc</goal>
-                        </goals>
-                        <phase>package</phase>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

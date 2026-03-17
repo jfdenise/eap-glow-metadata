@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jboss.eap.glow.metadata</groupId>
+    <artifactId>jboss-eap-glow-metadata-parent</artifactId>
+    <version>1.0.0.Beta-SNAPSHOT</version>
+  </parent>
+  <artifactId>layers-config-gen</artifactId>
+  <packaging>jar</packaging>
+  <properties>
+    <version.org.wildfly.glow>2.0.0.Beta1-SNAPSHOT</version.org.wildfly.glow>
+  </properties>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.wildfly.glow</groupId>
+          <artifactId>wildfly-glow-doc-plugin</artifactId>
+          <version>${version.org.wildfly.glow}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.glow</groupId>
+        <artifactId>wildfly-glow-doc-plugin</artifactId>
+        <configuration>
+          <channels>
+            <channel>
+              <manifest>
+                <url>file:///${project.basedir}/gen-manifest.yaml</url>
+              </manifest>
+            </channel>
+          </channels>
+          <preview>false</preview>
+          <targetDir>${basedir}/target</targetDir>
+          <repoPath>${basedir}/../eap-8.2/src/main/resources/eap-glow-metadata</repoPath>
+        </configuration>
+        <executions>
+          <execution>
+            <id>generate-maven-metadata</id>
+            <goals>
+              <goal>generate-maven-metadata</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
