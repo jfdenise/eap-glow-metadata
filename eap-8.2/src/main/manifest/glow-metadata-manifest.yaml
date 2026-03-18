@@ -1,0 +1,10 @@
+---
+schemaVersion: "1.1.0"
+name: "EAP 8.2 Glow Metadata Manifest"
+id: "org.jboss.eap.glow.metadata:eap-8.2"
+logicalVersion: "EAP 8.2 Glow Metadata Manifest"
+description: "EAP 8.2 Glow Metadata Manifest"
+streams:
+  - groupId: "org.jboss.eap.glow.metadata"
+    artifactId: "eap-8.2"
+    version: "${project.version}"
