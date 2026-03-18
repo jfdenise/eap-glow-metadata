@@ -2,7 +2,7 @@
 
 # A script to download the layers config locally and package them in the metadata artifact
 
-targetPath=eap-xp-7.0/src/main/resources/eap-glow-metadata/layers-configuration
+targetPath=eap-xp-7.0/src/main/resources/eap-xp-glow-metadata/layers-configuration
 mkdir -p $targetPath
 
 # Generate the sources.

@@ -1,0 +1,10 @@
+---
+schemaVersion: "1.1.0"
+name: "EAP XP 7 Glow Metadata Manifest"
+id: "org.jboss.eap.glow.metadata:eap-xp-7.0"
+logicalVersion: "EAP 7 Glow Metadata Manifest"
+description: "EAP 7 Glow Metadata Manifest"
+streams:
+  - groupId: "org.jboss.eap.glow.metadata"
+    artifactId: "eap-xp-7.0"
+    version: "${project.version}"
