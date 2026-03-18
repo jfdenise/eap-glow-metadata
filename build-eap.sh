@@ -7,8 +7,8 @@ mkdir -p $targetPath
 
 # Generate the sources.
 
-cd layers-config-gen;mvn clean install;cd ..
-cp -r layers-config-gen/target/metadata/layers-configuration/* $targetPath
+cd layers-config-gen;mvn clean install -Dorg.jboss.eap.metadata;cd ..
+cp -r layers-config-gen/target/eap/metadata/layers-configuration/* $targetPath
 
 # Build the metadata
 cd eap-8.2;mvn clean install;cd ..

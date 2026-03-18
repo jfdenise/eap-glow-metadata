@@ -14,6 +14,7 @@
     </properties>
     <modules>
         <module>eap-8.2</module>
+        <module>eap-xp-7.0</module>
     </modules>
     <dependencyManagement>
         <dependencies>
