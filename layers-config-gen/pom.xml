@@ -26,25 +26,44 @@
       <plugin>
         <groupId>org.wildfly.glow</groupId>
         <artifactId>wildfly-glow-doc-plugin</artifactId>
-        <configuration>
-          <channels>
-            <channel>
-              <manifest>
-                <url>file:///${project.basedir}/gen-manifest.yaml</url>
-              </manifest>
-            </channel>
-          </channels>
-          <preview>false</preview>
-          <targetDir>${basedir}/target</targetDir>
-          <repoPath>${basedir}/../eap-8.2/src/main/resources/eap-glow-metadata</repoPath>
-        </configuration>
         <executions>
           <execution>
-            <id>generate-maven-metadata</id>
+            <id>generate-maven-metadata-eap-8.2</id>
             <goals>
               <goal>generate-maven-metadata</goal>
             </goals>
             <phase>package</phase>
+            <configuration>
+              <channels>
+                <channel>
+                  <manifest>
+                    <url>file:///${project.basedir}/gen-manifest.yaml</url>
+                  </manifest>
+                </channel>
+              </channels>
+              <preview>false</preview>
+              <targetDir>${basedir}/target/eap-8.2</targetDir>
+              <repoPath>${basedir}/../eap-8.2/src/main/resources/eap-glow-metadata</repoPath>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-maven-metadata-eap-8.2-ee-11</id>
+            <goals>
+              <goal>generate-maven-metadata</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <channels>
+                <channel>
+                  <manifest>
+                    <url>file:///${project.basedir}/gen-manifest-ee-11.yaml</url>
+                  </manifest>
+                </channel>
+              </channels>
+              <preview>false</preview>
+              <targetDir>${basedir}/target/eap-8.2-ee-11</targetDir>
+              <repoPath>${basedir}/../eap-8.2-ee-11/src/main/resources/eap-glow-metadata</repoPath>
+            </configuration>
           </execution>
         </executions>
       </plugin>

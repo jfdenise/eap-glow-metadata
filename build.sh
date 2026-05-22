@@ -5,11 +5,26 @@
 targetPath=eap-8.2/src/main/resources/eap-glow-metadata/layers-configuration
 mkdir -p $targetPath
 
-# Generate the sources.
+# Generate the sources for EE 10 and EE 11
 
 cd layers-config-gen;mvn clean install;cd ..
-cp -r layers-config-gen/target/metadata/layers-configuration/* $targetPath
+cp -r layers-config-gen/target/eap-8.2/metadata/layers-configuration/* $targetPath
 
 # Build the metadata
 cd eap-8.2;mvn clean install;cd ..
+
+## EE 11
+
+targetPath=eap-8.2-ee-11/src/main/resources/eap-glow-metadata/layers-configuration
+mkdir -p $targetPath
+
+echo "EE 11 metadata to $targetPath"
+
+ls layers-config-gen/target/eap-8.2-ee-11/metadata/layers-configuration
+
+cp -r layers-config-gen/target/eap-8.2-ee-11/metadata/layers-configuration/* $targetPath
+
+# Build the metadata
+cd eap-8.2-ee-11;mvn clean install;cd ..
+
 echo "Done, check that new files have been added, use git to add them"

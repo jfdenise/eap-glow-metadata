@@ -5,4 +5,5 @@
     <feature-pack location="org.jboss.eap.cloud:eap-cloud-galleon-pack:"/>
     <feature-pack location="org.jboss.eap:eap-datasources-galleon-pack:"/>
     <feature-pack location="org.keycloak:keycloak-saml-adapter-galleon-pack:"/>
+    <feature-pack location="org.jboss.eap:eap-myfaces-feature-pack:"/>
 </installation>
