@@ -1,4 +1,8 @@
 envs:
+    - name: MSSQLSERVER_DRIVER_VERSION
+      description: "The version of the `com.microsoft.sqlserver:mssql-jdbc` Maven artifact"
+      required: true
+      build-time: true
     - name: MSSQLSERVER_DATABASE
       description: "Defines the database name to be used in the datasource’s `connection-url` property."
       required: true

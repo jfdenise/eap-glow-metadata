@@ -1,4 +1,8 @@
 envs:
+    - name: DB2_DRIVER_VERSION
+      description: "The version of the `com.ibm.db2:jcc` Maven artifact"
+      required: true
+      build-time: true
     - name: DB2_DATABASE
       description: "Defines the database name to be used in the datasource’s `connection-url` property."
       required: true
