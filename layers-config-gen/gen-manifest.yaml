@@ -9,7 +9,7 @@ streams:
     version: "8.2.0.Alpha-redhat-00021"
   - groupId: "org.jboss.eap"
     artifactId: "eap-datasources-galleon-pack"
-    version: "8.2.0.Beta-redhat-00027"
+    version: "8.2.0.Beta-redhat-00040"
   - groupId: "org.jboss.eap.cloud"
     artifactId: "eap-cloud-galleon-pack"
     version: "3.0.0.Beta-redhat-00029"
