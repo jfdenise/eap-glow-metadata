@@ -10,7 +10,7 @@
   <artifactId>layers-config-gen</artifactId>
   <packaging>jar</packaging>
   <properties>
-    <version.org.wildfly.glow>2.0.0.Final-redhat-00005</version.org.wildfly.glow>
+    <version.org.wildfly.glow>2.2.0.Final-redhat-00001</version.org.wildfly.glow>
   </properties>
   <build>
     <pluginManagement>
@@ -63,6 +63,26 @@
               <preview>false</preview>
               <targetDir>${basedir}/target/eap-8.2-ee-11</targetDir>
               <repoPath>${basedir}/../eap-8.2-ee-11/src/main/resources/eap-glow-metadata</repoPath>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-maven-metadata-eap-xp-7.0</id>
+            <goals>
+              <goal>generate-maven-metadata</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <channels>
+                <channel>
+                  <manifest>
+                    <url>file:///${project.basedir}/gen-manifest-xp-7.0.yaml</url>
+                  </manifest>
+                </channel>
+              </channels>
+              <preview>false</preview>
+              <serverVariant>ee-11</serverVariant>
+              <targetDir>${basedir}/target/eap-xp-7.0</targetDir>
+              <repoPath>${basedir}/../eap-xp-7.0/src/main/resources/eap-glow-metadata</repoPath>
             </configuration>
           </execution>
         </executions>
