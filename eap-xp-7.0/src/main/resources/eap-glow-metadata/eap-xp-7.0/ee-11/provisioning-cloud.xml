@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+
+<installation xmlns="urn:jboss:galleon:provisioning:3.0">
+    <feature-pack location="org.jboss.eap:wildfly-ee-11-galleon-pack:"/>
+    <feature-pack location="org.jboss.eap.xp:wildfly-galleon-pack:"/>
+    <feature-pack location="org.jboss.eap.xp.cloud:eap-xp-cloud-galleon-pack:"/>
+    <feature-pack location="org.jboss.eap:eap-datasources-galleon-pack:"/>
+    <!--<feature-pack location="org.keycloak:keycloak-saml-adapter-galleon-pack:"/>
+    <feature-pack location="org.jboss.eap:eap-myfaces-feature-pack:"/>-->
+    <options>
+        <option name="required_feature_packs" value="org.jboss.eap.xp:wildfly-galleon-pack:"/>
+    </options>
+</installation>
