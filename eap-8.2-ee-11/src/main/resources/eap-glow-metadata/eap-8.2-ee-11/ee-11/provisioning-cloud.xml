@@ -4,7 +4,7 @@
     <feature-pack location="org.jboss.eap:wildfly-ee-11-galleon-pack:"/>
     <feature-pack location="org.jboss.eap.cloud:eap-cloud-galleon-pack:"/>
     <feature-pack location="org.jboss.eap:eap-datasources-galleon-pack:"/>
-    <!-- Not ready yet -->
-    <!--<feature-pack location="org.keycloak:keycloak-saml-adapter-galleon-pack:"/>-->
-    <!--<feature-pack location="org.jboss.eap:eap-myfaces-feature-pack:"/>-->
+    <feature-pack location="org.keycloak:keycloak-saml-adapter-galleon-pack:"/>
+    <!-- Not yet ready -->
+    <!-- <feature-pack location="org.jboss.eap:eap-myfaces-feature-pack:"/> -->
 </installation>
